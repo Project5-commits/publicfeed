@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d0e0e">
+<title>Персональное меню — анкета</title>
+<meta name="description" content="10 коротких вопросов — и специалист соберёт меню под вашу цель, вкус и то, как вы готовите.">
+<meta property="og:title" content="Персональное меню под вашу цель">
+<meta property="og:description" content="10 коротких вопросов, 2 минуты. Меню под цель, вкус и ваш режим.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://project5-commits.github.io/publicfeed/">
+<meta property="og:image" content="https://project5-commits.github.io/publicfeed/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="900">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230d0e0e'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23c9ff3b' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0e0e;--card:#161818;--card2:#1e2120;--line:#2a2e2c;--text:#f3f1ec;--muted:#9da19c;--accent:#c9ff3b;--on-accent:#10140a;--no:#ff6e5e;--radius:20px;--font-scale:1}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html,body{overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font:500 calc(16px*var(--font-scale))/1.45 Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent;text-align:inherit}
+button:focus-visible,.inp:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.nojs{margin:24px 20px;padding:16px;border:1px solid var(--accent);border-radius:14px}
+
+/* ---------- top bar ---------- */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(13,14,14,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding-top:env(safe-area-inset-top);transform:translateY(-100%);transition:transform .3s}
+.topbar.show{transform:none}
+.tb-in{max-width:600px;margin:0 auto;padding:12px 20px 10px;display:flex;justify-content:space-between;font-size:14px;font-weight:700}
+.tb-c{color:var(--muted)}.tb-c b{color:var(--accent)}
+.tb-track{height:3px;background:var(--line)}
+.tb-track i{display:block;height:100%;width:0;background:var(--accent);transition:width .4s}
+
+/* ---------- layout ---------- */
+.layout{max-width:600px;margin:0 auto;padding:0 16px}
+.hero{padding:calc(28px + env(safe-area-inset-top)) 4px 8px}
+.kicker{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-weight:800;font-size:calc(40px*var(--font-scale));line-height:1.04;letter-spacing:-.035em;margin-top:16px}
+.hero h1 span{color:var(--accent)}
+.lead{color:var(--muted);font-size:17px;margin-top:14px;max-width:34ch}
+.visual{position:relative;margin:24px 0 0;border-radius:var(--radius);overflow:hidden;background:radial-gradient(120% 90% at 80% 10%,#25301a 0%,#151716 55%);display:flex;flex-direction:column;align-items:center;gap:14px;padding:22px 16px 16px}
+.visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+.ring{width:170px;height:auto}
+.ring .arc{fill:none;stroke-width:13;stroke-linecap:round;transform-origin:60px 60px;transform:rotate(-90deg);animation:draw 1.4s cubic-bezier(.2,.7,.2,1) both}
+.ring .a2{animation-delay:.15s}.ring .a3{animation-delay:.3s}
+@keyframes draw{from{stroke-dashoffset:302}}
+.legend{align-self:stretch;display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:#cfd3cc}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:8px;height:8px;border-radius:50%}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.step{padding:14px 12px;border-radius:16px;background:var(--card);font-size:14px;font-weight:700;line-height:1.25}
+.step b{display:block;color:var(--accent);font-size:13px;margin-bottom:6px}
+.cta{margin-top:18px}
+
+/* ---------- blocks ---------- */
+.flow{padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+.block{background:var(--card);border-radius:var(--radius);padding:22px 18px 20px;margin-top:12px;scroll-margin-top:64px;border:1.5px solid transparent;transition:border-color .3s}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease,border-color .3s}
+.reveal.in{opacity:1;transform:none}
+.block.bad{border-color:var(--no)}
+.bh{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+.bn{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--card2);font-size:13px;font-weight:800;color:var(--muted);position:relative;transition:background .3s,color .3s}
+.bn svg{position:absolute;opacity:0;transform:scale(.4);transition:.3s}
+.block.done .bn{background:var(--accent);color:transparent}
+.block.done .bn svg{opacity:1;transform:none;color:var(--on-accent)}
+.bh h2{font-size:calc(21px*var(--font-scale));font-weight:800;letter-spacing:-.02em;line-height:1.2;padding-top:3px}
+.bs{color:var(--muted);font-size:15px;margin-top:4px}
+.opt-tag{font-size:13px;font-weight:600;color:var(--muted);margin-left:6px;letter-spacing:0}
+.err{display:none;color:var(--no);font-size:14px;font-weight:700;margin-top:12px}
+.block.bad .err{display:block}
+
+.inp{display:block;width:100%;min-height:56px;padding:15px 16px;background:var(--card2);border:1.5px solid transparent;border-radius:14px;color:var(--text);font:inherit;font-size:max(16px,1em);-webkit-appearance:none;appearance:none;transition:border-color .2s}
+.inp::placeholder{color:#6f736e;opacity:1}
+.inp:focus{outline:none;border-color:var(--accent)}
+.inp.big{font-size:20px;font-weight:700}
+textarea.inp{resize:vertical;min-height:96px;line-height:1.4}
+
+/* goal cards */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gcard{position:relative;overflow:hidden;aspect-ratio:1/1.05;border-radius:16px;background:linear-gradient(160deg,#232725,#191b1a);border:2px solid transparent;display:flex;flex-direction:column;justify-content:space-between;padding:14px;transition:border-color .2s,transform .15s}
+.gcard:active{transform:scale(.97)}
+.gcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.7}
+.gcard::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,11,11,.92) 18%,rgba(10,11,11,0) 70%);pointer-events:none}
+.g-ic{position:relative;z-index:1;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(201,255,59,.1);color:var(--accent)}
+.g-txt{position:relative;z-index:1}
+.g-txt b{display:block;font-size:17px;font-weight:800;line-height:1.2}
+.g-txt small{display:block;font-size:13px;color:#b9bdb7;margin-top:3px;line-height:1.3}
+.g-check{position:absolute;z-index:2;top:12px;right:12px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;opacity:0;transform:scale(.5);transition:.25s}
+.gcard[aria-pressed=true]{border-color:var(--accent)}
+.gcard[aria-pressed=true] .g-check{opacity:1;transform:none}
+
+/* segmented */
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:4px;background:#0f1110;border-radius:16px}
+.seg-b{min-height:50px;border-radius:12px;font-weight:700;color:var(--muted);text-align:center;transition:background .2s,color .2s}
+.seg-b[aria-pressed=true]{background:var(--accent);color:var(--on-accent)}
+.seg.xl .seg-b{min-height:64px;font-size:24px;font-weight:800}
+.seg-cap{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:8px;padding:0 6px}
+
+/* body */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.num{display:block;background:var(--card2);border-radius:14px;padding:10px 12px 8px;border:1.5px solid transparent;transition:border-color .2s}
+.num:focus-within{border-color:var(--accent)}
+.num-l{display:block;font-size:13px;color:var(--muted);font-weight:600}
+.num-row{display:flex;align-items:baseline;gap:4px}
+.num input{width:100%;min-width:0;background:none;border:0;color:var(--text);font:800 26px/1.2 Manrope,sans-serif;letter-spacing:-.02em;padding:2px 0;-webkit-appearance:none;appearance:none}
+.num input:focus{outline:none}
+.num input::placeholder{color:#3f4441}
+.num-u{font-size:13px;color:var(--muted);font-weight:600}
+.toggle{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;margin-top:10px;padding:12px 14px;border-radius:14px;background:var(--card2);font-weight:600}
+.box{flex:none;width:24px;height:24px;border-radius:7px;border:2px solid #4b504d;display:grid;place-items:center;color:transparent;transition:.2s}
+.toggle[aria-pressed=true] .box{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+
+/* rows */
+.rows{display:grid;gap:8px}
+.row{display:flex;align-items:center;gap:14px;width:100%;min-height:64px;padding:12px 14px;border-radius:14px;background:var(--card2);border:1.5px solid transparent;transition:border-color .2s,background .2s}
+.row[aria-pressed=true]{border-color:var(--accent);background:#20251b}
+.r-txt{flex:1;min-width:0}
+.r-txt b{display:block;font-weight:700;line-height:1.25}
+.r-txt small{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.radio{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid #4b504d;position:relative;transition:.2s}
+.row[aria-pressed=true] .radio{border-color:var(--accent)}
+.row[aria-pressed=true] .radio::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--accent)}
+.lvl{flex:none;display:flex;align-items:flex-end;gap:3px;width:30px;height:24px}
+.lvl i{flex:1;border-radius:2px;background:#3a3f3c}
+.lvl i:nth-child(1){height:30%}.lvl i:nth-child(2){height:55%}.lvl i:nth-child(3){height:78%}.lvl i:nth-child(4){height:100%}
+.l1 i:nth-child(-n+1),.l2 i:nth-child(-n+2),.l3 i:nth-child(-n+3),.l4 i:nth-child(-n+4){background:var(--accent)}
+.r-ic{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(201,255,59,.08);color:var(--accent)}
+
+/* cook-for cards */
+.cards2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ccard{display:flex;flex-direction:column;gap:10px;padding:16px 14px;border-radius:16px;background:var(--card2);border:2px solid transparent;min-height:148px;transition:border-color .2s}
+.ccard[aria-pressed=true]{border-color:var(--accent);background:#20251b}
+.ccard .r-ic{width:44px;height:44px}
+.ccard b{font-size:17px;font-weight:800;line-height:1.2}
+.ccard small{font-size:13px;color:var(--muted);line-height:1.3}
+.note{display:flex;gap:10px;margin-top:10px;padding:12px 14px;border-radius:14px;background:rgba(201,255,59,.08);color:#e3f0c4;font-size:14px;line-height:1.4}
+.note svg{flex:none;color:var(--accent);margin-top:1px}
+
+/* taste */
+.tf{display:block}
+.tf+.tf{margin-top:14px}
+.tf-l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;margin-bottom:8px}
+.tf .inp{min-height:84px}
+.dot{width:18px;height:18px;border-radius:6px;display:grid;place-items:center}
+.dot.y{background:var(--accent);color:var(--on-accent)}.dot.n{border:1.5px solid var(--no);color:var(--no)}
+
+/* send */
+.send h2{font-size:calc(26px*var(--font-scale))}
+.profile{margin-top:4px;border-radius:16px;background:var(--card2);padding:6px 16px}
+.pr{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.pr:last-child{border-bottom:0}
+.pr dt{color:var(--muted)}
+.pr dd{font-weight:700;word-break:break-word}
+.pr dd.empty{color:#666b67;font-weight:600}
+.pr dd .y{color:var(--accent)}.pr dd .n{color:var(--no)}
+.wish{margin-top:12px}
+.btn{min-height:58px;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:16px;font-weight:800;font-size:17px;padding:0 18px;transition:transform .15s,filter .2s;text-align:center}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:var(--accent);color:var(--on-accent)}
+.btn.ghost{background:var(--card2)}
+.actions{display:grid;gap:8px;margin-top:16px}
+.actions .r2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fine{font-size:14px;color:var(--muted);margin-top:14px;line-height:1.45}
+.fine b{color:var(--text);font-weight:700}
+.reset{display:block;margin:18px auto 0;min-height:44px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;font-size:14px}
+.done-box{display:none;text-align:center;padding:12px 0 4px}
+.send.sent .done-box{display:block}
+.done-ic{width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{from{transform:scale(.3);opacity:0}}
+.done-box p{color:var(--muted);margin-top:6px}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));z-index:30;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:var(--text);color:var(--bg);padding:12px 16px;border-radius:14px;font-weight:700;font-size:15px;transition:.25s;width:max-content;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- desktop ---------- */
+@media (min-width:980px){
+ .layout{max-width:1180px;display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:64px;padding:0 40px}
+ .hero{position:sticky;top:0;align-self:start;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:48px 0}
+ .hero h1{font-size:calc(56px*var(--font-scale))}
+ .cta{display:none}
+ .gcard{aspect-ratio:auto;min-height:168px}
+ .flow{padding-top:56px;padding-bottom:80px}
+ .tb-in{max-width:1180px;padding:12px 40px 10px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.reveal{opacity:1;transform:none}}
+</style>
+<script type="application/json" id="tweaks">[{"var":"--accent","label":"Акцент","type":"color"},{"var":"--bg","label":"Фон","type":"color"},{"var":"--radius","label":"Скругление блоков","type":"range","min":8,"max":32,"unit":"px"},{"var":"--font-scale","label":"Размер текста","type":"range","min":0.9,"max":1.2,"step":0.05}]</script>
+</head>
+<body>
+<div class="nojs" id="nojs">Анкета не загрузилась полностью. Откройте ссылку в браузере — Safari или Chrome.</div>
+
+<div class="topbar" id="topbar"><div class="tb-in"><span>Анкета для меню</span><span class="tb-c" id="tbc"></span></div><div class="tb-track"><i id="tbfill"></i></div></div>
+
+<div class="layout">
+  <aside class="hero" id="hero">
+    <div class="kicker" data-demo>Персональное меню</div>
+    <h1>Меню под вашу цель <span>и ваш вкус</span></h1>
+    <p class="lead">10 коротких вопросов — около 2 минут. Считать калории не нужно: меню соберёт специалист.</p>
+    <div class="visual">
+      <img src="assets/hero.jpg" alt="" onerror="this.remove()">
+      <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="48" fill="none" stroke="#262a28" stroke-width="13"/>
+        <circle class="arc a1" cx="60" cy="60" r="48" stroke="var(--accent)" stroke-dasharray="100 302"/>
+        <circle class="arc a2" cx="60" cy="60" r="48" stroke="#f3f1ec" stroke-dasharray="58 302" stroke-dashoffset="-110"/>
+        <circle class="arc a3" cx="60" cy="60" r="48" stroke="#8c9a6a" stroke-dasharray="114 302" stroke-dashoffset="-178"/>
+        <text x="60" y="58" text-anchor="middle" fill="#f3f1ec" font-family="Manrope,sans-serif" font-weight="800" font-size="17">2 мин</text>
+        <text x="60" y="74" text-anchor="middle" fill="#9da19c" font-family="Manrope,sans-serif" font-weight="600" font-size="8.5">на анкету</text>
+      </svg>
+      <div class="legend"><span><i style="background:var(--accent)"></i>Белки</span><span><i style="background:#f3f1ec"></i>Жиры</span><span><i style="background:#8c9a6a"></i>Углеводы</span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><b>01</b>Ответьте на вопросы</div>
+      <div class="step"><b>02</b>Отправьте файл</div>
+      <div class="step"><b>03</b>Получите меню</div>
+    </div>
+    <button class="btn primary cta" data-act="start">Начать <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></button>
+  </aside>
+  <main class="flow" id="flow"></main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+document.getElementById('nojs').remove();
+const STORE='menu_anketa_v2',VERSION='2.0';
+const $=id=>document.getElementById(id);
+const I={check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',down:'<path d="M3 7l6 6 4-4 8 8"/><path d="M21 11v6h-6"/>',db:'<path d="M6.5 6.5v11M17.5 6.5v11M3 9.5v5M21 9.5v5M6.5 12h11"/>',flame:'<path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.5 1.5 1.5 2.5 2.5 2.5C11 8 11 5 12 3z"/>',eq:'<path d="M12 4v16M6 20h12M4 8h16"/><path d="M7 8l-3 6a3 3 0 0 0 6 0zM17 8l-3 6a3 3 0 0 0 6 0z"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14a6.5 6.5 0 0 1 3.5 6"/>',bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',box:'<path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/>',heart:'<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',share:'<path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>',dl:'<path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/>',copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>'};
+const ic=(n,s,c)=>`<svg ${c?`class="${c}" `:''}viewBox="0 0 24 24" width="${s||20}" height="${s||20}" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]}</svg>`;
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const num=v=>{const n=parseFloat(String(v==null?'':v).replace(',','.'));return isFinite(n)?n:null};
+
+/* ---------- вопросы ---------- */
+const GOALS=[{v:'Похудеть',s:'Минус жир без голода',ic:'down',img:'goal-lose'},{v:'Набрать мышцы',s:'Больше силы и объёма',ic:'db',img:'goal-gain'},{v:'Рельеф',s:'Сушка, чёткая форма',ic:'flame',img:'goal-cut'},{v:'Держать форму',s:'Ровно, вкусно, без срывов',ic:'eq',img:'goal-keep'}];
+const ACTIV=[{v:'Почти не тренируюсь',s:'Сидячая работа, мало хожу',l:1},{v:'1–2 тренировки в неделю',s:'Или много хожу пешком',l:2},{v:'3–4 тренировки в неделю',s:'Зал, бег, единоборства',l:3},{v:'5+ тренировок',s:'Или тяжёлая физическая работа',l:4}];
+const COOK=[{v:'Быстро',s:'До 20 минут в день',ic:'bolt'},{v:'Обычно',s:'30–60 минут в день',ic:'clock'},{v:'Впрок',s:'1–2 раза в неделю на несколько дней',ic:'box'}];
+const FOR=[{v:'Только себе',s:'Меню точно под вашу цель',ic:'user'},{v:'На всю семью',s:'Общие блюда, ваша порция — отдельно',ic:'users'}];
+const BL=[
+ {id:'name',t:'Как вас зовут'},
+ {id:'goal',t:'Ваша цель'},
+ {id:'body',t:'Немного о вас',s:'Нужно, чтобы рассчитать калории'},
+ {id:'activity',t:'Сколько вы двигаетесь'},
+ {id:'meals',t:'Сколько раз в день удобно есть'},
+ {id:'cook_for',t:'Для кого готовите'},
+ {id:'cook_time',t:'Сколько времени на готовку'},
+ {id:'budget',t:'Бюджет на продукты'},
+ {id:'taste',t:'Что любите, а что нет',s:'Своими словами, коротко — по желанию',opt:1},
+ {id:'health',t:'Аллергия, болезни, запреты врача',s:'Важно для безопасности меню'}
+];
+const REQ=BL.filter(b=>!b.opt);
+
+/* ---------- состояние ---------- */
+let A={};
+function init(){try{A=JSON.parse(localStorage.getItem(STORE))||{}}catch(e){A={}}}
+init();
+const save=()=>{try{localStorage.setItem(STORE,JSON.stringify(A))}catch(e){}};
+const txt=k=>String(A[k]||'').trim();
+function demo(){A={name:'Дмитрий',goal:'Набрать мышцы',sex:'Мужчина',age:'34',height:'181',weight:'86,5',activity:'3–4 тренировки в неделю',meals:'4',cook_for:'На всю семью',cook_time:'Впрок',budget:'Средне',likes:'Курица, гречка, творог, яйца, сырники, кофе с молоком',no_eat:'Рыба, грибы',health:'Есть',health_detail:'Гастрит, без острого'}}
+if(/demo/.test(location.hash+location.search))demo();
+const RANGE={age:[14,90],height:[120,230],weight:[35,250]};
+const bodyOk=()=>!!A.sex&&Object.keys(RANGE).every(k=>{const n=num(A[k]);return n!==null&&n>=RANGE[k][0]&&n<=RANGE[k][1]});
+function isDone(id){switch(id){
+ case 'name':return txt('name').length>0;
+ case 'body':return bodyOk();
+ case 'taste':return !!txt('likes')||!!txt('no_eat');
+ case 'health':return A.health==='Нет'||(A.health==='Есть'&&txt('health_detail').length>1);
+ default:return !!A[id]}}
+const ERR={name:'Напишите, как к вам обращаться',goal:'Выберите цель',body:'Укажите пол, возраст, рост в см и вес в кг',activity:'Выберите вариант',meals:'Выберите количество',cook_for:'Выберите вариант',cook_time:'Выберите вариант',budget:'Выберите вариант',health:'Выберите «Нет» или опишите, что есть'};
+
+/* ---------- отрисовка ---------- */
+const pick=(key,v,cls,inner)=>`<button type="button" class="${cls}" data-set="${key}" data-v="${esc(v)}" aria-pressed="false">${inner}</button>`;
+function inner(id){switch(id){
+ case 'name':return `<input class="inp big" type="text" data-k="name" value="${esc(A.name)}" placeholder="Имя" aria-label="Имя" autocomplete="given-name" enterkeyhint="done">`;
+ case 'goal':return `<div class="goals">${GOALS.map(o=>pick('goal',o.v,'gcard',`<img src="assets/${o.img}.jpg" alt="" onerror="this.remove()"><span class="g-ic">${ic(o.ic,26)}</span><span class="g-txt"><b>${o.v}</b><small>${o.s}</small></span><span class="g-check">${ic('check',16)}</span>`)).join('')}</div>`;
+ case 'body':return `<div class="seg">${['Мужчина','Женщина'].map(v=>pick('sex',v,'seg-b',v)).join('')}</div>
+  <div class="nums">${[['age','Возраст','лет','30','numeric'],['height','Рост','см','175','numeric'],['weight','Вес','кг','80','decimal']].map(f=>`<label class="num"><span class="num-l">${f[1]}</span><span class="num-row"><input type="text" inputmode="${f[4]}" data-k="${f[0]}" value="${esc(A[f[0]])}" placeholder="${f[3]}" enterkeyhint="done" maxlength="5"><span class="num-u">${f[2]}</span></span></label>`).join('')}</div>
+  <button type="button" class="toggle" data-toggle="preg" aria-pressed="false" id="preg"><span class="box">${ic('check',15)}</span>Беременность или кормление грудью</button>`;
+ case 'activity':return `<div class="rows">${ACTIV.map(o=>pick('activity',o.v,'row',`<span class="lvl l${o.l}"><i></i><i></i><i></i><i></i></span><span class="r-txt"><b>${o.v}</b><small>${o.s}</small></span><span class="radio"></span>`)).join('')}</div>`;
+ case 'meals':return `<div class="seg xl">${['3','4','5','6'].map(v=>pick('meals',v,'seg-b',v)).join('')}</div><div class="seg-cap"><span>Реже, но плотнее</span><span>Чаще, но легче</span></div>`;
+ case 'cook_for':return `<div class="cards2">${FOR.map(o=>pick('cook_for',o.v,'ccard',`<span class="r-ic">${ic(o.ic,24)}</span><b>${o.v}</b><small>${o.s}</small>`)).join('')}</div><p class="note" id="famNote">${ic('info',18)}<span>Соберём меню из простых блюд, которые едят все — и взрослые, и дети. Вашу порцию посчитаем отдельно под цель.</span></p>`;
+ case 'cook_time':return `<div class="rows">${COOK.map(o=>pick('cook_time',o.v,'row',`<span class="r-ic">${ic(o.ic,22)}</span><span class="r-txt"><b>${o.v}</b><small>${o.s}</small></span><span class="radio"></span>`)).join('')}</div>`;
+ case 'budget':return `<div class="seg">${['Экономно','Средне','Не важно'].map(v=>pick('budget',v,'seg-b',v)).join('')}</div>`;
+ case 'taste':return `<label class="tf"><span class="tf-l"><i class="dot y">${ic('heart',12)}</i>Люблю, хочу оставить</span><textarea class="inp" rows="2" data-k="likes" placeholder="Курица, гречка, сырники, кофе с молоком" aria-label="Что любите">${esc(A.likes)}</textarea></label>
+  <label class="tf"><span class="tf-l"><i class="dot n">${ic('x',12)}</i>Не ем, убрать из меню</span><textarea class="inp" rows="2" data-k="no_eat" placeholder="Рыба, грибы, лук. Если едите всё — так и напишите" aria-label="Что не едите">${esc(A.no_eat)}</textarea></label>`;
+ case 'health':return `<div class="seg">${['Нет','Есть'].map(v=>pick('health',v,'seg-b',v)).join('')}</div><textarea class="inp" id="hd" data-k="health_detail" style="margin-top:10px" placeholder="Например: аллергия на орехи, гастрит, диабет" aria-label="Подробности">${esc(A.health_detail)}</textarea>`;
+ }}
+function mount(){
+ $('flow').innerHTML=BL.map((b,i)=>`<section class="block reveal" id="b-${b.id}" data-b="${b.id}"><header class="bh"><span class="bn">${String(i+1).padStart(2,'0')}${ic('check',16)}</span><div><h2>${b.t}</h2>${b.s?`<p class="bs">${b.s}</p>`:''}</div></header>${inner(b.id)}<p class="err" role="alert">${ERR[b.id]||''}</p></section>`).join('')+
+ `<section class="block send reveal" id="b-send"><div class="done-box"><div class="done-ic">${ic('check',30)}</div><h2>Анкета готова</h2><p>Если файл ещё не у специалиста — отправьте его кнопкой ниже.</p></div>
+   <header class="bh" style="margin-bottom:14px"><div><h2>Проверьте и отправьте</h2><p class="bs" id="sendSub"></p></div></header>
+   <dl class="profile" id="profile"></dl>
+   <textarea class="inp wish" data-k="wishes" placeholder="Пожелания — по желанию: любимые блюда, перекус на работе, ночные смены" aria-label="Пожелания">${esc(A.wishes)}</textarea>
+   <div class="actions"><button class="btn primary" data-act="send">${ic('share',22)} Отправить анкету</button>
+   <div class="r2"><button class="btn ghost" data-act="download">${ic('dl')} Скачать</button><button class="btn ghost" data-act="copy">${ic('copy')} Скопировать</button></div></div>
+   <p class="fine">Нажмите «Отправить» и выберите чат в Telegram или WhatsApp. Если не получилось — «Скачать»: файл появится в <b>Файлы → Загрузки</b> на iPhone или в <b>Загрузках</b> на Android. Ответы хранятся только на вашем телефоне, пока вы их не отправите.</p>
+   <button class="reset" data-act="reset">Стереть ответы</button></section>`;
+ sync();observe()}
+
+/* ---------- синхронизация ---------- */
+const ageW=n=>{n=Math.floor(n);const a=n%10,b=n%100;return a===1&&b!==11?'год':a>=2&&a<=4&&(b<12||b>14)?'года':'лет'};
+function profileHTML(){
+ const likes=txt('likes'),nos=txt('no_eat');
+ const body=[A.sex,num(A.age)!==null?`${num(A.age)} ${ageW(num(A.age))}`:'',num(A.height)!==null?`${num(A.height)} см`:'',num(A.weight)!==null?`${String(A.weight).replace('.',',')} кг`:''].filter(Boolean).join(' · ');
+ const food=[A.meals?`${A.meals} приёма пищи`.replace('5 приёма','5 приёмов').replace('6 приёма','6 приёмов'):'',A.cook_for,A.cook_time?`готовка: ${A.cook_time.toLowerCase()}`:'',A.budget?`бюджет: ${A.budget.toLowerCase()}`:''].filter(Boolean).join(' · ');
+ const health=A.health==='Нет'?'Нет ограничений':A.health==='Есть'?txt('health_detail'):'';
+ const R=[['Имя',txt('name')],['Цель',A.goal],['О вас',body+(A.sex==='Женщина'&&A.preg?' · беременность / ГВ':'')],['Движение',A.activity],['Питание',food],['Любит',likes?`<span class="y">${esc(likes)}</span>`:'',1],['Не ест',nos?`<span class="n">${esc(nos)}</span>`:'',1],['Здоровье',health]];
+ return R.map(r=>`<div class="pr"><dt>${r[0]}</dt><dd class="${r[1]?'':'empty'}">${r[1]?(r[2]?r[1]:esc(r[1])):'—'}</dd></div>`).join('')}
+function sync(){
+ document.querySelectorAll('[data-set]').forEach(b=>b.setAttribute('aria-pressed',A[b.dataset.set]===b.dataset.v));
+ const pg=$('preg');if(pg){pg.hidden=A.sex!=='Женщина';pg.setAttribute('aria-pressed',!!A.preg)}
+ const fn=$('famNote');if(fn)fn.hidden=A.cook_for!=='На всю семью';
+ const hd=$('hd');if(hd)hd.hidden=A.health!=='Есть';
+ BL.forEach(b=>{const el=$('b-'+b.id);if(!el)return;const d=isDone(b.id);el.classList.toggle('done',d);if(d)el.classList.remove('bad')});
+ const done=REQ.filter(b=>isDone(b.id)).length;
+ $('tbc').innerHTML=`<b>${done}</b> из ${REQ.length}`;$('tbfill').style.width=done/REQ.length*100+'%';
+ if($('profile')){$('profile').innerHTML=profileHTML();$('sendSub').textContent=done===REQ.length?'Всё заполнено — можно отправлять':`Заполнено ${done} из ${REQ.length} обязательных`}}
+
+/* ---------- данные для ChatGPT ---------- */
+function build(){
+ const likes=txt('likes'),nos=txt('no_eat');
+ const health=A.health==='Есть'?txt('health_detail'):'нет';
+ const preg=A.sex==='Женщина'?!!A.preg:null;
+ const r=[];
+ if(A.cook_for==='На всю семью')r.push('Готовка на семью: только простые общедоступные блюда без экзотики и спецпродуктов, которые едят и взрослые, и дети. Порцию клиента рассчитать отдельно под его цель.');
+ if(A.cook_time==='Быстро')r.push('Рецепты до 20 минут, минимум шагов и посуды.');
+ if(A.cook_time==='Впрок')r.push('Блюда для готовки впрок 1–2 раза в неделю: хранятся 3–4 дня в холодильнике, хорошо разогреваются. Дать план заготовки.');
+ if(A.budget==='Экономно')r.push('Экономный бюджет: доступные продукты — крупы, курица, яйца, творог, сезонные и замороженные овощи.');
+ if(nos)r.push('Не использовать (со слов клиента): '+nos+'.');
+ if(likes)r.push('Чаще использовать любимое (со слов клиента): '+likes+'.');
+ if(health!=='нет')r.push('Учесть здоровье: '+health+'. Аллергены исключить полностью, включая скрытые источники; спорное — рекомендовать согласовать с врачом.');
+ if(preg)r.push('Беременность или грудное вскармливание: без дефицита калорий, рацион согласовать с врачом.');
+ r.push('Приёмов пищи в день: '+(A.meals||'—')+'.');
+ return{form:'Анкета для персонального меню',version:VERSION,filled_at:new Date().toISOString(),
+  for_ai:'Ответы клиента для составления меню. Калорийность и БЖУ рассчитать по полу, возрасту, росту, весу, активности и цели. Правила из menu_rules обязательны.',
+  client:{name:txt('name')||null,sex:A.sex||null,age:num(A.age),height_cm:num(A.height),weight_kg:num(A.weight),pregnancy_or_breastfeeding:preg},
+  goal:A.goal||null,activity:A.activity||null,meals_per_day:num(A.meals),
+  cooking_for:A.cook_for||null,cooking_time:A.cook_time?`${A.cook_time} (${COOK.find(c=>c.v===A.cook_time).s})`:null,budget:A.budget||null,
+  likes:likes||null,do_not_eat:nos||null,health,wishes:txt('wishes')||null,menu_rules:r}}
+const data=()=>JSON.stringify(build(),null,2);
+function fname(ext){const d=new Date(),p=n=>String(n).padStart(2,'0');return `Анкета_меню_${(txt('name')||'клиент').replace(/[^\p{L}\p{N}]+/gu,'_')}_${p(d.getDate())}-${p(d.getMonth()+1)}.${ext||'json'}`}
+
+/* ---------- отправка ---------- */
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),3400)}
+function validate(){let first=null;REQ.forEach(b=>{if(!isDone(b.id)){const el=$('b-'+b.id);el.classList.add('bad');first=first||el}});if(first){first.scrollIntoView({behavior:'smooth',block:'start'});toast('Остались вопросы без ответа');return false}return true}
+function sent(){$('b-send').classList.add('sent')}
+function download(){const u=URL.createObjectURL(new Blob([data()],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download=fname();document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),5000);sent();toast('Файл сохранён в «Загрузки» — отправьте его в чат')}
+async function send(){if(!validate())return;
+ const d=data();
+ const tries=[new File([d],fname(),{type:'application/json'}),new File([d],fname('txt'),{type:'text/plain'})];
+ for(const f of tries){try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Анкета для меню'});sent();toast('Готово! Анкета отправлена');return}}catch(e){if(e&&e.name==='AbortError')return}}
+ download()}
+function copy(){if(!validate())return;const t=data();
+ const fb=()=>{const ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:0;opacity:0';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,t.length);let ok=false;try{ok=document.execCommand('copy')}catch(e){}ta.remove();toast(ok?'Скопировано — вставьте в чат':'Не получилось — нажмите «Скачать»')};
+ if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(()=>{sent();toast('Скопировано — вставьте в чат')},fb);else fb()}
+const ACT={send,copy,download:()=>{if(validate())download()},
+ start:()=>{const f=REQ.find(b=>!isDone(b.id));$('b-'+(f?f.id:'send')).scrollIntoView({behavior:'smooth',block:'start'})},
+ reset:()=>{if(confirm('Стереть все ответы?')){try{localStorage.removeItem(STORE)}catch(e){}init();mount();window.scrollTo(0,0)}}};
+
+/* ---------- взаимодействие ---------- */
+const buzz=()=>{try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}};
+function autoNext(bid){const i=BL.findIndex(b=>b.id===bid);setTimeout(()=>{if(!isDone(bid))return;const n=BL[i+1];const el=n?(!isDone(n.id)?$('b-'+n.id):null):$('b-send');if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},420)}
+let demoTaps=0;
+document.addEventListener('click',e=>{
+ if(e.target.closest('[data-demo]')&&!txt('name')&&++demoTaps>=3){demoTaps=0;demo();save();mount();return}
+ const s=e.target.closest('[data-set]');
+ if(s){const k=s.dataset.set,v=s.dataset.v;A[k]=v;save();sync();buzz();
+  if(k==='health'&&v==='Есть')setTimeout(()=>$('hd').focus(),60);
+  else if(k!=='sex')autoNext(s.closest('[data-b]').dataset.b);
+  return}
+ if(e.target.closest('[data-toggle=preg]')){A.preg=!A.preg;save();sync();return}
+ const a=e.target.closest('[data-act]');if(a&&ACT[a.dataset.act])ACT[a.dataset.act]()});
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.k;if(!k)return;A[k]=e.target.value;save();sync()});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();e.target.blur();const b=e.target.closest('[data-b]');if(b&&(b.dataset.b==='name'))autoNext('name')}});
+function observe(){const els=document.querySelectorAll('.reveal');
+ if(!('IntersectionObserver' in window)){els.forEach(x=>x.classList.add('in'));return}
+ const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{rootMargin:'0px 0px -8% 0px'});
+ els.forEach(x=>io.observe(x))}
+const onScroll=()=>$('topbar').classList.toggle('show',window.scrollY>(innerWidth>=980?120:$('hero').offsetHeight-40));
+addEventListener('scroll',onScroll,{passive:true});
+mount();onScroll();
+</script>
+</body>
+</html>
