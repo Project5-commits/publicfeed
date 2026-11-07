@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d0e0e">
+<title>Анкета атлета — онлайн-ведение по пауэрлифтингу</title>
+<meta name="description" content="Анкета для онлайн-ведения по пауэрлифтингу: опыт, максимумы, здоровье, цели и восстановление.">
+<meta property="og:title" content="Анкета атлета · онлайн-ведение по пауэрлифтингу">
+<meta property="og:description" content="19 вопросов, около 7 минут. Тренировки под ваш опыт, максимумы и цели.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://project5-commits.github.io/publicfeed/pl/">
+<meta property="og:image" content="https://project5-commits.github.io/publicfeed/pl/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="900">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230d0e0e'/%3E%3Crect x='4' y='15' width='24' height='2' fill='%23d42c22'/%3E%3Crect x='8' y='8' width='4' height='16' rx='1' fill='%23d42c22'/%3E%3Crect x='20' y='8' width='4' height='16' rx='1' fill='%23d42c22'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0c0d;--card:#161617;--card2:#1f1f21;--line:#2c2c2f;--text:#f4f1ed;--muted:#a19d98;--accent:#d42c22;--accent-ink:#ff6a5c;--on-accent:#ffffff;--tint:rgba(212,44,34,.12);--tint-line:rgba(255,106,92,.28);--no:#ffb020;--radius:20px;--font-scale:1;
+ --p-red:#d42c22;--p-blue:#2f5fc8;--p-yellow:#e0aa2a}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{background:var(--bg);color:var(--text);font:500 calc(16px*var(--font-scale))/1.45 Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent;text-align:inherit}
+button:focus-visible,.inp:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.nojs{margin:24px 20px;padding:16px;border:1px solid var(--accent);border-radius:14px}
+
+/* top bar */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(13,14,14,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding-top:env(safe-area-inset-top);transform:translateY(-100%);transition:transform .3s}
+.topbar.show{transform:none}
+.tb-in{max-width:600px;margin:0 auto;padding:12px 20px 10px;display:flex;justify-content:space-between;gap:12px;font-size:14px;font-weight:700}
+.tb-ch{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-c{color:var(--muted);white-space:nowrap}.tb-c b{color:var(--accent-ink)}
+.tb-track{height:3px;background:var(--line)}
+.tb-track i{display:block;height:100%;width:0;background:var(--accent);transition:width .4s}
+
+/* layout + hero */
+.layout{max-width:600px;margin:0 auto;padding:0 16px}
+.hero{padding:calc(28px + env(safe-area-inset-top)) 4px 8px}
+.kicker{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink)}
+.hero h1{font-weight:800;font-size:calc(42px*var(--font-scale));line-height:1.02;letter-spacing:-.035em;margin-top:16px}
+.hero h1 span{color:var(--accent-ink)}
+.lead{color:var(--muted);font-size:17px;margin-top:14px;max-width:36ch}
+.visual{position:relative;margin:24px 0 0;border-radius:var(--radius);overflow:hidden;background:radial-gradient(90% 80% at 50% 0%,#2a1715 0%,#121213 70%);padding:26px 10px 18px}
+.bar-svg{display:block;width:100%;height:auto}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+.chalk{animation:drift 6s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translateY(-6px)}}
+.pl-l,.pl-r{animation:load .9s cubic-bezier(.2,.8,.2,1) both}
+.pl-l{--dx:-70px}.pl-r{--dx:70px}
+.pl-l.d2,.pl-r.d2{animation-delay:.12s}.pl-l.d3,.pl-r.d3{animation-delay:.24s}.pl-l.d4,.pl-r.d4{animation-delay:.36s}.pl-l.d5,.pl-r.d5{animation-delay:.48s}
+@keyframes load{from{transform:translateX(var(--dx));opacity:0}}
+.lifts-row{display:grid;grid-template-columns:repeat(3,1fr);margin-top:16px;text-align:center}
+.lifts-row div{font-size:13px;font-weight:700;color:var(--muted)}
+.lifts-row b{display:block;font-size:22px;font-weight:800;color:var(--text);letter-spacing:-.02em}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.step{padding:14px 12px;border-radius:16px;background:var(--card);font-size:14px;font-weight:700;line-height:1.25}
+.step b{display:block;color:var(--accent-ink);font-size:13px;margin-bottom:6px}
+.cta{margin-top:18px}
+
+/* chapters + blocks */
+.flow{padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+.chap{display:flex;align-items:baseline;gap:12px;margin:40px 4px 4px;scroll-margin-top:60px}
+.chap span{font-size:13px;font-weight:800;color:var(--accent-ink);letter-spacing:.1em}
+.chap h3{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.chap::after{content:"";flex:1;height:1px;background:var(--line);align-self:center}
+.block{background:var(--card);border-radius:var(--radius);padding:22px 18px 20px;margin-top:12px;scroll-margin-top:64px;border:1.5px solid transparent;transition:border-color .3s}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease,border-color .3s}
+.reveal.in{opacity:1;transform:none}
+.block.bad{border-color:var(--no)}
+.bh{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+.bn{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--card2);font-size:13px;font-weight:800;color:var(--muted);position:relative;transition:background .3s,color .3s}
+.bn svg{position:absolute;opacity:0;transform:scale(.4);transition:.3s}
+.block.done .bn{background:var(--accent);color:transparent}
+.block.done .bn svg{opacity:1;transform:none;color:var(--on-accent)}
+.bh h2{font-size:calc(20px*var(--font-scale));font-weight:800;letter-spacing:-.02em;line-height:1.22;padding-top:4px}
+.bs{color:var(--muted);font-size:15px;margin-top:4px;line-height:1.4}
+.err{display:none;color:var(--no);font-size:14px;font-weight:700;margin-top:12px}
+.block.bad .err{display:block}
+
+.inp{display:block;width:100%;min-height:56px;padding:15px 16px;background:var(--card2);border:1.5px solid transparent;border-radius:14px;color:var(--text);font:inherit;font-size:max(16px,1em);-webkit-appearance:none;appearance:none;transition:border-color .2s}
+.inp::placeholder{color:#6f736e;opacity:1}
+.inp:focus{outline:none;border-color:var(--accent)}
+textarea.inp{resize:vertical;min-height:96px;line-height:1.4}
+.stack{display:grid;gap:8px}
+.mt{margin-top:10px}
+
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:4px;background:#0f1110;border-radius:16px}
+.seg-b{min-height:50px;padding:6px 4px;border-radius:12px;font-weight:700;color:var(--muted);text-align:center;line-height:1.2;transition:background .2s,color .2s}
+.seg-b[aria-pressed=true]{background:var(--accent);color:var(--on-accent)}
+.seg.xl .seg-b{min-height:62px;font-size:22px;font-weight:800}
+.seg.wrap2{grid-auto-flow:row;grid-template-columns:1fr 1fr}
+.cap{font-size:13px;font-weight:700;color:var(--muted);margin:16px 0 8px}
+
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.num{display:block;background:var(--card2);border-radius:14px;padding:10px 12px 8px;border:1.5px solid transparent;transition:border-color .2s}
+.num:focus-within{border-color:var(--accent)}
+.num-l{display:block;font-size:13px;color:var(--muted);font-weight:600}
+.num-row{display:flex;align-items:baseline;gap:4px}
+.num input{width:100%;min-width:0;background:none;border:0;color:var(--text);font:800 26px/1.2 Manrope,sans-serif;letter-spacing:-.02em;padding:2px 0;-webkit-appearance:none;appearance:none}
+.num input:focus{outline:none}
+.num input::placeholder{color:#3f4441}
+.num-u{font-size:13px;color:var(--muted);font-weight:600}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:10px 14px;border-radius:12px;background:var(--card2);border:1.5px solid transparent;font-weight:600;font-size:15px;transition:background .15s,color .15s,border-color .15s}
+.chip:active{transform:scale(.96)}
+.chip[aria-pressed=true]{background:var(--accent);color:var(--on-accent)}
+.chip svg{display:none}.chip[aria-pressed=true] svg{display:block}
+
+.rows{display:grid;gap:8px}
+.row{display:flex;align-items:center;gap:14px;width:100%;min-height:62px;padding:12px 14px;border-radius:14px;background:var(--card2);border:1.5px solid transparent;transition:border-color .2s,background .2s}
+.row[aria-pressed=true]{border-color:var(--accent);background:var(--tint)}
+.r-txt{flex:1;min-width:0}
+.r-txt b{display:block;font-weight:700;line-height:1.25}
+.r-txt small{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.radio{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid #4b504d;position:relative;transition:.2s}
+.row[aria-pressed=true] .radio{border-color:var(--accent)}
+.row[aria-pressed=true] .radio::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--accent)}
+.lvl{flex:none;display:flex;align-items:flex-end;gap:3px;width:30px;height:24px}
+.lvl i{flex:1;border-radius:2px;background:#3a3f3c}
+.lvl i:nth-child(1){height:30%}.lvl i:nth-child(2){height:55%}.lvl i:nth-child(3){height:78%}.lvl i:nth-child(4){height:100%}
+.l1 i:nth-child(-n+1),.l2 i:nth-child(-n+2),.l3 i:nth-child(-n+3),.l4 i:nth-child(-n+4){background:var(--accent)}
+
+.toggle{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;margin-top:10px;padding:12px 14px;border-radius:14px;background:var(--card2);font-weight:600}
+.box{flex:none;width:24px;height:24px;border-radius:7px;border:2px solid #4b504d;display:grid;place-items:center;color:transparent;transition:.2s}
+.toggle[aria-pressed=true] .box{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.note{display:flex;gap:10px;margin-top:12px;padding:12px 14px;border-radius:14px;background:var(--tint);color:#f0d6d2;font-size:14px;line-height:1.4}
+.note svg{flex:none;color:var(--accent-ink);margin-top:1px}
+
+/* lifts */
+.lift{display:flex;align-items:center;gap:12px;background:var(--card2);border-radius:14px;padding:8px 8px 8px 14px;border:1.5px solid transparent;transition:border-color .2s}
+.lift:focus-within{border-color:var(--accent)}
+.lift-dot{flex:none;width:10px;height:36px;border-radius:3px}
+.lift-n{flex:1;font-weight:700}
+.lift-n small{display:block;font-size:12px;color:var(--muted);font-weight:600}
+.lift-in{position:relative;width:132px;flex:none}
+.lift-in input{width:100%;min-height:52px;background:#0f1110;border:0;border-radius:10px;color:var(--text);text-align:right;padding:0 38px 0 10px;font:800 24px/1 Manrope,sans-serif;-webkit-appearance:none;appearance:none}
+.lift-in input:focus{outline:none}
+.lift-in input::placeholder{color:#3f4441}
+.lift-in span{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted);font-weight:600}
+.total{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.tot{border-radius:14px;padding:14px;background:var(--tint);border:1.5px solid var(--tint-line)}
+.tot small{display:block;font-size:13px;color:#d9c3bf;font-weight:700}
+.tot b{display:block;font-size:30px;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1.15;margin-top:2px}
+.tot b em{font-style:normal;font-size:15px;color:#d9c3bf;font-weight:700;margin-left:4px}
+.tot-hint{grid-column:1/-1;font-size:13px;color:var(--muted)}
+
+/* send */
+.send h2{font-size:calc(26px*var(--font-scale))}
+.card{border-radius:18px;background:linear-gradient(150deg,#3a1613 0%,#1a1414 55%,#151516 100%);padding:18px;border:1px solid var(--tint-line)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.card-name{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.15;word-break:break-word}
+.card-sub{color:var(--muted);font-size:14px;margin-top:4px}
+.card-tag{flex:none;font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--on-accent);background:var(--accent);padding:6px 8px;border-radius:8px}
+.card-lifts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:16px}
+.cl{background:rgba(0,0,0,.28);border-radius:12px;padding:10px 8px}
+.cl small{display:block;font-size:12px;color:var(--muted);font-weight:700}
+.cl b{display:block;font-size:19px;font-weight:800;letter-spacing:-.02em;margin-top:2px}
+.cl.sum b{color:var(--accent-ink)}
+.card-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.card-meta span{font-size:13px;font-weight:700;padding:6px 10px;border-radius:9px;background:rgba(255,255,255,.06);color:#d6d9d2}
+.check{margin-top:16px;border-radius:16px;background:var(--card2);padding:16px}
+.check h4{font-size:15px;font-weight:800}
+.check li{list-style:none;display:flex;gap:12px;margin-top:12px;font-size:14px;line-height:1.4;color:#cfd2cc}
+.check li b{color:var(--text)}
+.or{font-size:13px;color:var(--muted);margin-top:12px;padding-left:48px}
+.ci{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--tint);color:var(--accent-ink)}
+.btn{min-height:58px;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:16px;font-weight:800;font-size:17px;padding:0 18px;transition:transform .15s;text-align:center}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:var(--accent);color:var(--on-accent)}
+.btn.ghost{background:var(--card2)}
+.actions{display:grid;gap:8px;margin-top:16px}
+.actions .r2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.actions .r2 .btn{font-size:16px;padding:0 10px;gap:8px;white-space:nowrap}
+.fine{font-size:14px;color:var(--muted);margin-top:14px;line-height:1.45}
+.fine b{color:var(--text);font-weight:700}
+.reset{display:block;margin:18px auto 0;min-height:44px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;font-size:14px}
+.done-box{display:none;text-align:center;padding:4px 0 18px}
+.send.sent .done-box{display:block}
+.done-ic{width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{from{transform:scale(.3);opacity:0}}
+.done-box p{color:var(--muted);margin-top:6px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));z-index:30;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:var(--text);color:var(--bg);padding:12px 16px;border-radius:14px;font-weight:700;font-size:15px;transition:.25s;width:max-content;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* поля заметнее: своя подложка, рамка и подпись у каждой группы */
+:root{--field:#242427;--field-line:#3b3b40}
+.inp,.num,.lift{background:var(--field);border-color:var(--field-line)}
+.seg{background:#0a0a0b;border:1.5px solid var(--field-line)}
+.seg-b{color:#d4cfc9}
+.chip,.row{border-color:var(--field-line)}
+.row{background:var(--field)}
+.chip:not([aria-pressed=true]){background:var(--field)}
+.cap.top{margin-top:0}
+.nums{margin-top:0}
+
+@media (min-width:980px){
+ .layout{max-width:1180px;display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:64px;padding:0 40px}
+ .hero{position:sticky;top:0;align-self:start;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:48px 0}
+ .hero h1{font-size:calc(58px*var(--font-scale))}
+ .cta{display:none}
+ .flow{padding-top:16px;padding-bottom:80px}
+ .tb-in{max-width:1180px;padding:12px 40px 10px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.reveal{opacity:1;transform:none}}
+</style>
+<script type="application/json" id="tweaks">[{"var":"--accent","label":"Акцент","type":"color"},{"var":"--bg","label":"Фон","type":"color"},{"var":"--radius","label":"Скругление блоков","type":"range","min":8,"max":32,"unit":"px"},{"var":"--font-scale","label":"Размер текста","type":"range","min":0.9,"max":1.2,"step":0.05}]</script>
+</head>
+<body>
+<div class="nojs" id="nojs">Анкета не загрузилась полностью. Откройте ссылку в браузере — Safari или Chrome.</div>
+
+<div class="topbar" id="topbar"><div class="tb-in"><span class="tb-ch" id="tbch">Анкета атлета</span><span class="tb-c" id="tbc"></span></div><div class="tb-track"><i id="tbfill"></i></div></div>
+
+<div class="layout">
+  <aside class="hero" id="hero">
+    <div class="kicker" data-demo>Онлайн-ведение · пауэрлифтинг</div>
+    <h1>Анкета <span>атлета</span></h1>
+    <p class="lead">19 вопросов, около 7 минут. По ответам тренер построит программу под ваш опыт, максимумы, восстановление и цели.</p>
+    <div class="visual">
+      <img class="hero-img" src="assets/pl-hero.jpg" alt="" onerror="this.remove()">
+      <svg class="bar-svg" viewBox="0 0 400 200" aria-hidden="true">
+        <defs>
+          <linearGradient id="gR" x1="0" x2="1"><stop offset="0" stop-color="#5c0d09"/><stop offset=".28" stop-color="#c3261d"/><stop offset=".52" stop-color="#ff5a48"/><stop offset=".78" stop-color="#b8231a"/><stop offset="1" stop-color="#4e0b08"/></linearGradient>
+          <linearGradient id="gB" x1="0" x2="1"><stop offset="0" stop-color="#0c1d46"/><stop offset=".28" stop-color="#2853b4"/><stop offset=".52" stop-color="#5d8aee"/><stop offset=".78" stop-color="#244ca6"/><stop offset="1" stop-color="#0b1a40"/></linearGradient>
+          <linearGradient id="gY" x1="0" x2="1"><stop offset="0" stop-color="#5a3e08"/><stop offset=".28" stop-color="#c99222"/><stop offset=".52" stop-color="#ffd166"/><stop offset=".78" stop-color="#bf8a1f"/><stop offset="1" stop-color="#523907"/></linearGradient>
+          <linearGradient id="gS" x1="0" x2="1"><stop offset="0" stop-color="#1e2023"/><stop offset=".5" stop-color="#8d9298"/><stop offset="1" stop-color="#1b1d20"/></linearGradient>
+          <linearGradient id="sh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset=".16" stop-color="#fff" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></linearGradient>
+          <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#44484d"/><stop offset=".35" stop-color="#f2f3f4"/><stop offset=".6" stop-color="#979da3"/><stop offset="1" stop-color="#33373b"/></linearGradient>
+          <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d5156"/><stop offset=".28" stop-color="#fff"/><stop offset=".5" stop-color="#c4c8cc"/><stop offset=".78" stop-color="#6f747a"/><stop offset="1" stop-color="#2f3337"/></linearGradient>
+          <pattern id="knurl" width="2.6" height="2.6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1" height="2.6" fill="#000" opacity=".4"/></pattern>
+          <filter id="blur6" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+          <filter id="blur24" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="24"/></filter>
+          <filter id="blur1"><feGaussianBlur stdDeviation="1.1"/></filter>
+        </defs>
+        <ellipse cx="200" cy="100" rx="170" ry="62" fill="#d42c22" opacity=".22" filter="url(#blur24)"/>
+        <ellipse cx="200" cy="186" rx="176" ry="7" fill="#000" opacity=".7" filter="url(#blur6)"/>
+        <rect x="120" y="96" width="160" height="8" rx="4" fill="url(#steel)"/>
+        <rect x="146" y="96" width="44" height="8" fill="url(#knurl)"/><rect x="210" y="96" width="44" height="8" fill="url(#knurl)"/>
+        <rect x="8" y="91" width="114" height="18" rx="4" fill="url(#chrome)"/>
+        <rect x="278" y="91" width="114" height="18" rx="4" fill="url(#chrome)"/>
+        <rect x="112" y="78" width="9" height="44" rx="2" fill="url(#chrome)"/>
+        <rect x="279" y="78" width="9" height="44" rx="2" fill="url(#chrome)"/>
+        <g class="pl-l"><rect x="94" y="24" width="17" height="152" rx="5" fill="url(#gR)"/><rect x="94" y="24" width="17" height="152" rx="5" fill="url(#sh)"/><rect x="97" y="30" width="1.4" height="140" rx=".7" fill="#fff" opacity=".2"/><text x="102.5" y="100" transform="rotate(-90 102.5 100)" text-anchor="middle" dominant-baseline="central" font-family="Manrope,sans-serif" font-weight="800" font-size="8" letter-spacing="1" fill="#fff" opacity=".85">25 KG</text></g>
+        <g class="pl-l d2"><rect x="76" y="24" width="17" height="152" rx="5" fill="url(#gR)"/><rect x="76" y="24" width="17" height="152" rx="5" fill="url(#sh)"/><rect x="79" y="30" width="1.4" height="140" rx=".7" fill="#fff" opacity=".2"/><text x="84.5" y="100" transform="rotate(-90 84.5 100)" text-anchor="middle" dominant-baseline="central" font-family="Manrope,sans-serif" font-weight="800" font-size="8" letter-spacing="1" fill="#fff" opacity=".85">25 KG</text></g>
+        <g class="pl-l d3"><rect x="60" y="24" width="15" height="152" rx="5" fill="url(#gB)"/><rect x="60" y="24" width="15" height="152" rx="5" fill="url(#sh)"/><rect x="62.5" y="30" width="1.3" height="140" rx=".6" fill="#fff" opacity=".2"/><text x="67.5" y="100" transform="rotate(-90 67.5 100)" text-anchor="middle" dominant-baseline="central" font-family="Manrope,sans-serif" font-weight="800" font-size="7" letter-spacing="1" fill="#fff" opacity=".8">20 KG</text></g>
+        <g class="pl-l d4"><rect x="46" y="24" width="13" height="152" rx="4" fill="url(#gY)"/><rect x="46" y="24" width="13" height="152" rx="4" fill="url(#sh)"/><rect x="48.2" y="30" width="1.2" height="140" rx=".6" fill="#fff" opacity=".25"/></g>
+        <g class="pl-l d5"><rect x="38" y="66" width="7" height="68" rx="2" fill="url(#gS)"/><rect x="29" y="84" width="9" height="32" rx="2" fill="url(#chrome)"/></g>
+        <g class="pl-r"><rect x="289" y="24" width="17" height="152" rx="5" fill="url(#gR)"/><rect x="289" y="24" width="17" height="152" rx="5" fill="url(#sh)"/><rect x="292" y="30" width="1.4" height="140" rx=".7" fill="#fff" opacity=".2"/><text x="297.5" y="100" transform="rotate(90 297.5 100)" text-anchor="middle" dominant-baseline="central" font-family="Manrope,sans-serif" font-weight="800" font-size="8" letter-spacing="1" fill="#fff" opacity=".85">25 KG</text></g>
+        <g class="pl-r d2"><rect x="307" y="24" width="17" height="152" rx="5" fill="url(#gR)"/><rect x="307" y="24" width="17" height="152" rx="5" fill="url(#sh)"/><rect x="310" y="30" width="1.4" height="140" rx=".7" fill="#fff" opacity=".2"/><text x="315.5" y="100" transform="rotate(90 315.5 100)" text-anchor="middle" dominant-baseline="central" font-family="Manrope,sans-serif" font-weight="800" font-size="8" letter-spacing="1" fill="#fff" opacity=".85">25 KG</text></g>
+        <g class="pl-r d3"><rect x="325" y="24" width="15" height="152" rx="5" fill="url(#gB)"/><rect x="325" y="24" width="15" height="152" rx="5" fill="url(#sh)"/><rect x="327.5" y="30" width="1.3" height="140" rx=".6" fill="#fff" opacity=".2"/><text x="332.5" y="100" transform="rotate(90 332.5 100)" text-anchor="middle" dominant-baseline="central" font-family="Manrope,sans-serif" font-weight="800" font-size="7" letter-spacing="1" fill="#fff" opacity=".8">20 KG</text></g>
+        <g class="pl-r d4"><rect x="341" y="24" width="13" height="152" rx="4" fill="url(#gY)"/><rect x="341" y="24" width="13" height="152" rx="4" fill="url(#sh)"/><rect x="343.2" y="30" width="1.2" height="140" rx=".6" fill="#fff" opacity=".25"/></g>
+        <g class="pl-r d5"><rect x="355" y="66" width="7" height="68" rx="2" fill="url(#gS)"/><rect x="362" y="84" width="9" height="32" rx="2" fill="url(#chrome)"/></g>
+        <g class="chalk" filter="url(#blur1)" fill="#fff">
+          <circle cx="132" cy="70" r="1.6" opacity=".35"/><circle cx="141" cy="58" r="1" opacity=".3"/><circle cx="150" cy="80" r="2.2" opacity=".18"/><circle cx="166" cy="64" r="1.2" opacity=".25"/><circle cx="128" cy="48" r="2.6" opacity=".12"/>
+          <circle cx="262" cy="72" r="1.4" opacity=".3"/><circle cx="252" cy="56" r="2" opacity=".18"/><circle cx="240" cy="80" r="1" opacity=".3"/><circle cx="270" cy="46" r="2.8" opacity=".1"/><circle cx="226" cy="66" r="1.2" opacity=".22"/>
+          <ellipse cx="200" cy="74" rx="48" ry="14" opacity=".045"/>
+        </g>
+      </svg>
+      <div class="lifts-row"><div><b>Присед</b>1ПМ</div><div><b>Жим</b>1ПМ</div><div><b>Тяга</b>1ПМ</div></div>
+    </div>
+    <div class="steps">
+      <div class="step"><b>01</b>Заполните анкету</div>
+      <div class="step"><b>02</b>Пришлите видео или программу</div>
+      <div class="step"><b>03</b>Получите план</div>
+    </div>
+    <button class="btn primary cta" data-act="start">Начать <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></button>
+  </aside>
+  <main class="flow" id="flow"></main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<button id="selftest" type="button" tabindex="-1" aria-hidden="true" style="position:fixed;left:0;bottom:0;width:6px;height:6px;opacity:0;z-index:1"></button>
+
+<script>
+document.getElementById('nojs').remove();
+const STORE='pl_anketa_v1',VERSION='1.0';
+const $=id=>document.getElementById(id);
+const I={check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',share:'<path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>',dl:'<path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/>',copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',video:'<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/>',doc:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'};
+const ic=(n,s)=>`<svg viewBox="0 0 24 24" width="${s||20}" height="${s||20}" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]}</svg>`;
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const num=v=>{const n=parseFloat(String(v==null?'':v).replace(',','.'));return isFinite(n)?n:null};
+const fmt=n=>String(Math.round(n*10)/10).replace('.',',');
+
+/* ---------- вопросы (порядок и смысл — по списку тренера) ---------- */
+const CH=['О вас','Опыт и максимумы','Цели и тренировки','Питание и образ жизни','Добавки и привычки'];
+const BL=[
+ {id:'fio',ch:0,q:'ФИО, город проживания',t:'ФИО и город',type:'pair',f:[{k:'fio',ph:'Фамилия, имя, отчество',auto:'name'},{k:'city',ph:'Город',auto:'address-level2'}]},
+ {id:'body',ch:0,q:'Рост / вес / возраст',t:'Пол, рост, вес, возраст',s:'Пол нужен для весовой категории и расчёта очков',type:'body'},
+ {id:'health',ch:0,q:'Проблемы со здоровьем, старые травмы',t:'Здоровье и травмы',s:'Пишите всё, даже если кажется незначительным или не связанным с тренировками',type:'yn',yes:'Есть',chips:['Поясница','Колени','Плечи','Локти','Кисти','Шея','Тазобедренные','Грудной отдел','Давление','Сердце'],ph:'Что, когда случилось, как сейчас: болит ли, что нельзя делать'},
+ {id:'exp',ch:1,q:'Тренировочный опыт',t:'Тренировочный опыт',type:'rows',opts:[{v:'До 1 года',s:'Только начинаю',l:1},{v:'1–3 года',s:'Знаю базу, тренируюсь регулярно',l:2},{v:'3–5 лет',s:'Опыт работы по программам',l:3},{v:'Больше 5 лет',s:'Давно в силовом спорте',l:4}],note:{k:'exp_note',ph:'Чем занимались раньше: зал, пауэрлифтинг, другие виды спорта — по желанию'}},
+ {id:'comp',ch:1,q:'Соревновательный опыт',t:'Соревновательный опыт',type:'yn',yes:'Есть',ph:'Какие старты, федерация, категория, результат, разряд'},
+ {id:'coach',ch:1,q:'Ранее занимались с тренером или самостоятельно',t:'Раньше занимались',type:'chips1',opts:['Самостоятельно','С тренером','По-разному']},
+ {id:'lifts',ch:1,q:'Одноповторные максимумы',t:'Одноповторные максимумы',s:'Лучший результат на 1 раз. Если не проверяли — примерная оценка',type:'lifts'},
+ {id:'goals',ch:2,q:'Цели в пауэрлифтинге / отдельных движениях',t:'Цели',s:'Отметьте, что ближе, и опишите конкретно',type:'multi',opts:['Поднять сумму','Подтянуть отстающее движение','Выполнить разряд, КМС, МС','Выступить на соревнованиях','Сила и форма для себя'],ph:'Например: жим 140 кг к маю, КМС в категории до 93 кг'},
+ {id:'fed',ch:2,q:'Выступления: альтернативные федерации или ФПР',t:'Где планируете выступать',type:'seg',wrap:1,opts:['ФПР','Альтернативные федерации','Пока не решил','Не планирую выступать'],note:{k:'fed_note',ph:'Какая федерация, если знаете — по желанию'}},
+ {id:'days',ch:2,q:'Дней в неделю / времени на тренировки',t:'Сколько готовы тренироваться',type:'days'},
+ {id:'gym',ch:2,q:'Зал и сайт зала',t:'В каком зале занимаетесь',s:'Ссылка на сайт или соцсети зала — чтобы оценить оборудование',type:'pair',f:[{k:'gym',ph:'Название зала, адрес'},{k:'gym_url',ph:'Сайт или соцсети зала — по возможности',opt:1}]},
+ {id:'meals',ch:3,q:'Сколько раз в день можете есть (в перспективе)',t:'Сколько раз в день сможете есть',s:'Не сколько едите сейчас, а сколько реально сможете',type:'seg',xl:1,opts:['2','3','4','5','6+']},
+ {id:'diet_lim',ch:3,q:'Ограничения по питанию',t:'Ограничения по питанию',type:'yn',yes:'Есть',ph:'Аллергия, непереносимость, не едите мясо, религиозные ограничения'},
+ {id:'diet_now',ch:3,q:'Рацион питания сейчас',t:'Ваш рацион сейчас',s:'Коротко: что и когда едите в обычный день',type:'area',ph:'Утро — овсянка и 3 яйца. Обед — столовая. Вечер — мясо с гарниром. Перекусы — творог, фрукты'},
+ {id:'life',ch:3,q:'Образ жизни',t:'Образ жизни',type:'rows',opts:[{v:'Сидячий',s:'Офис, машина, мало шагов',l:1},{v:'Умеренно активный',s:'Часть дня на ногах',l:2},{v:'Активный',s:'Много движения в течение дня',l:3},{v:'Тяжёлый физический труд',s:'Стройка, склад, смены',l:4}]},
+ {id:'supps',ch:4,q:'Витамины, БАДы, лекарства',t:'Витамины, БАДы, лекарства',type:'yn',yes:'Принимаю',ph:'Что и в какой дозировке'},
+ {id:'pharm',ch:4,q:'Опыт использования фармакологических препаратов',t:'Опыт с фармакологией',s:'Ответ видит только тренер. Он нужен, чтобы безопасно рассчитать нагрузку',type:'seg',opts:['Нет','Был раньше','Сейчас'],note:{k:'pharm_note',ph:'Что, когда, курсом или постоянно — по желанию',when:()=>A.pharm&&A.pharm!=='Нет'}},
+ {id:'habits',ch:4,q:'Вредные привычки',t:'Вредные привычки',type:'yn',yes:'Есть',ph:'Курение, алкоголь — как часто'},
+ {id:'source',ch:4,q:'Откуда узнали обо мне',t:'Откуда узнали обо мне',type:'chips1',opts:['Instagram','Telegram','ВКонтакте','YouTube','От знакомых','В зале','Другое'],note:{k:'source_note',ph:'Уточните — по желанию'}}
+];
+
+/* ---------- состояние ---------- */
+let A={};
+function init(){try{A=JSON.parse(localStorage.getItem(STORE))||{}}catch(e){A={}}}
+init();
+const save=()=>{try{localStorage.setItem(STORE,JSON.stringify(A))}catch(e){}};
+const txt=k=>String(A[k]||'').trim();
+const arr=k=>Array.isArray(A[k])?A[k]:[];
+function demo(){A={fio:'Соколов Андрей Викторович',city:'Екатеринбург',sex:'Мужчина',height:'180',weight:'92,4',age:'29',health:'Есть',health_chips:['Поясница','Плечи'],health_detail:'Протрузия L5–S1 в 2022, сейчас не беспокоит. Правое плечо ноет после тяжёлого жима',exp:'3–5 лет',comp:'Есть',comp_detail:'Два старта в ФПР в 2025, сумма 555 кг, кат. 93 кг, I разряд',coach:'Самостоятельно',squat:'210',bench:'135',dead:'240',goals:['Выполнить разряд, КМС, МС','Подтянуть отстающее движение'],goals_detail:'КМС в категории 93 кг к осени, подтянуть жим',fed:'ФПР',days:'4',dur:'1,5–2 часа',gym:'Атлет, ул. Малышева 50',gym_url:'atlet-gym.ru',meals:'5',diet_lim:'Нет',diet_now:'Завтрак — овсянка и яйца, обед в столовой, вечером мясо с гарниром',life:'Сидячий',supps:'Принимаю',supps_detail:'Омега-3, витамин D 2000 МЕ, креатин 5 г',pharm:'Нет',habits:'Нет',source:'Telegram'}}
+if(/demo/.test(location.hash+location.search))demo();
+const RANGE={height:[120,230],weight:[35,250],age:[12,90]};
+const bodyOk=()=>!!A.sex&&Object.keys(RANGE).every(k=>{const n=num(A[k]);return n!==null&&n>=RANGE[k][0]&&n<=RANGE[k][1]});
+const LIFTS=[{k:'squat',n:'Присед',c:'var(--p-red)'},{k:'bench',n:'Жим лёжа',c:'var(--p-blue)'},{k:'dead',n:'Становая тяга',c:'var(--p-yellow)'}];
+const liftOk=k=>{const n=num(A[k]);return n!==null&&n>0&&n<=600};
+function isDone(b){switch(b.type){
+ case 'pair':return b.f.filter(f=>!f.opt).every(f=>txt(f.k).length>1);
+ case 'body':return bodyOk();
+ case 'yn':return A[b.id]==='Нет'||(A[b.id]===b.yes&&(txt(b.id+'_detail').length>1||arr(b.id+'_chips').length>0));
+ case 'lifts':return A.no1rm?txt('lifts_detail').length>1:LIFTS.every(l=>liftOk(l.k));
+ case 'multi':return arr(b.id).length>0||txt(b.id+'_detail').length>1;
+ case 'days':return !!A.days&&!!A.dur;
+ case 'area':return txt(b.id).length>1;
+ default:return !!A[b.id]}}
+const ERR={pair:'Заполните поле',body:'Укажите пол, рост в см, вес в кг и возраст',yn:'Выберите «Нет» или опишите подробнее',lifts:'Укажите все три максимума в кг или опишите рабочие веса',multi:'Отметьте цель или опишите её',days:'Выберите дни и время',area:'Напишите коротко'};
+
+/* ---------- DOTS ---------- */
+function dots(total,bw,sex){if(!total||!bw||!sex)return null;
+ const m=sex==='Мужчина';const w=Math.min(Math.max(bw,40),m?210:150);
+ const c=m?[-0.000001093,0.0007391293,-0.1918759221,24.0900756,-307.75076]:[-0.0000010706,0.0005158568,-0.1126655495,13.6175032,-57.96288];
+ const den=c[0]*w**4+c[1]*w**3+c[2]*w**2+c[3]*w+c[4];return den>0?total*500/den:null}
+function totals(){if(A.no1rm)return null;const v=LIFTS.map(l=>num(A[l.k]));if(v.some(x=>x===null||x<=0))return{total:null,dots:null,parts:v};const t=v.reduce((a,b)=>a+b,0);return{total:t,dots:dots(t,num(A.weight),A.sex),parts:v}}
+
+/* ---------- отрисовка ---------- */
+const pick=(key,v,cls,inner)=>`<button type="button" class="${cls}" data-set="${key}" data-v="${esc(v)}" aria-pressed="false">${inner}</button>`;
+const multi=(key,v,inner)=>`<button type="button" class="chip" data-multi="${key}" data-v="${esc(v)}" aria-pressed="false">${ic('check',15)}${inner}</button>`;
+const ta=(k,ph,extra)=>`<textarea class="inp ${extra||''}" data-k="${k}" placeholder="${esc(ph)}" aria-label="${esc(ph)}" rows="3">${esc(A[k])}</textarea>`;
+function inner(b){let h='';switch(b.type){
+ case 'pair':h=`<div class="stack">${b.f.map(f=>`<input class="inp" type="text" data-k="${f.k}" value="${esc(A[f.k])}" placeholder="${esc(f.ph)}" aria-label="${esc(f.ph)}" autocomplete="${f.auto||'off'}" enterkeyhint="done">`).join('')}</div>`;break;
+ case 'body':h=`<p class="cap top">Пол</p><div class="seg">${['Мужчина','Женщина'].map(v=>pick('sex',v,'seg-b',v)).join('')}</div>
+  <p class="cap">Рост, вес, возраст</p><div class="nums">${[['height','Рост','см','180','numeric'],['weight','Вес','кг','90','decimal'],['age','Возраст','лет','28','numeric']].map(f=>`<label class="num"><span class="num-l">${f[1]}</span><span class="num-row"><input type="text" inputmode="${f[4]}" data-k="${f[0]}" value="${esc(A[f[0]])}" placeholder="${f[3]}" maxlength="5" enterkeyhint="done"><span class="num-u">${f[2]}</span></span></label>`).join('')}</div>`;break;
+ case 'yn':h=`<div class="seg">${['Нет',b.yes].map(v=>pick(b.id,v,'seg-b',v)).join('')}</div><div class="yes" data-yes="${b.id}">${b.chips?`<p class="cap">Где — по желанию</p><div class="chips">${b.chips.map(c=>multi(b.id+'_chips',c,c)).join('')}</div>`:''}${ta(b.id+'_detail',b.ph,'mt')}</div>`;break;
+ case 'rows':h=`<div class="rows">${b.opts.map(o=>pick(b.id,o.v,'row',`<span class="lvl l${o.l}"><i></i><i></i><i></i><i></i></span><span class="r-txt"><b>${o.v}</b><small>${o.s}</small></span><span class="radio"></span>`)).join('')}</div>`;break;
+ case 'seg':h=`<div class="seg${b.xl?' xl':''}${b.wrap?' wrap2':''}">${b.opts.map(v=>pick(b.id,v,'seg-b',v)).join('')}</div>`;break;
+ case 'chips1':h=`<div class="chips">${b.opts.map(v=>pick(b.id,v,'chip',`${ic('check',15)}${v}`)).join('')}</div>`;break;
+ case 'multi':h=`<div class="chips">${b.opts.map(v=>multi(b.id,v,v)).join('')}</div>${ta(b.id+'_detail',b.ph,'mt')}`;break;
+ case 'area':h=ta(b.id,b.ph);break;
+ case 'days':h=`<p class="cap" style="margin-top:0">Дней в неделю</p><div class="seg xl">${['2','3','4','5','6'].map(v=>pick('days',v,'seg-b',v)).join('')}</div>
+  <p class="cap">Одна тренировка</p><div class="seg wrap2">${['До 1 часа','1–1,5 часа','1,5–2 часа','Больше 2 часов'].map(v=>pick('dur',v,'seg-b',v)).join('')}</div>`;break;
+ case 'lifts':h=`<div class="stack" id="liftIn">${LIFTS.map(l=>`<label class="lift"><span class="lift-dot" style="background:${l.c}"></span><span class="lift-n">${l.n}</span><span class="lift-in"><input type="text" inputmode="decimal" data-k="${l.k}" value="${esc(A[l.k])}" placeholder="0" maxlength="5" aria-label="${l.n}, кг" enterkeyhint="done"><span>кг</span></span></label>`).join('')}
+   <div class="total"><div class="tot"><small>Сумма троеборья</small><b id="tTotal">—</b></div><div class="tot"><small>Очки DOTS</small><b id="tDots">—</b></div><p class="tot-hint" id="tHint"></p></div></div>
+   <button type="button" class="toggle" data-toggle="no1rm" aria-pressed="false"><span class="box">${ic('check',15)}</span>Не проверял максимумы — опишу рабочие веса</button>
+   <div id="no1rmBox">${ta('lifts_detail','Например: присед 140×5, жим 100×6, тяга 170×3','mt')}</div>`;break;
+ }
+ if(b.note)h+=`<div data-note="${b.id}">${ta(b.note.k,b.note.ph,'mt')}</div>`;
+ return h}
+function mount(){let ch=-1,n=0,h='';
+ BL.forEach(b=>{if(b.ch!==ch){ch=b.ch;h+=`<div class="chap" id="ch-${ch}"><span>${String(ch+1).padStart(2,'0')}</span><h3>${CH[ch]}</h3></div>`}n++;
+  h+=`<section class="block reveal" id="b-${b.id}" data-b="${b.id}" data-ch="${b.ch}"><header class="bh"><span class="bn">${String(n).padStart(2,'0')}${ic('check',16)}</span><div><h2>${b.t}</h2>${b.s?`<p class="bs">${b.s}</p>`:''}</div></header>${inner(b)}<p class="err" role="alert">${ERR[b.type]||'Выберите вариант'}</p></section>`});
+ h+=`<section class="block send reveal" id="b-send" data-ch="5"><div class="done-box"><div class="done-ic">${ic('check',30)}</div><h2>Анкета у тренера</h2><p>Осталось прислать видео или программу — подробнее ниже.</p></div>
+  <header class="bh" style="margin-bottom:14px"><div><h2>Карточка атлета</h2><p class="bs" id="sendSub"></p></div></header>
+  <div class="card" id="card"></div>
+  <div class="check"><h4>После анкеты пришлите в тот же чат видео или программу</h4><ul>
+   <li><span class="ci">${ic('video',20)}</span><span><b>Видео приседа, жима и тяги</b> с рабочим весом, с двух ракурсов: сбоку и спереди под 45°</span></li>
+   <li><span class="ci">${ic('doc',20)}</span><span><b>Программу за последние 2–3 месяца</b> — фото, скриншот или файл</span></li></ul><p class="or">Лучше и то и другое, но достаточно одного</p></div>
+  <div class="actions"><button class="btn primary" data-act="send">${ic('share',22)} Отправить анкету</button>
+  <div class="r2"><button class="btn ghost" data-act="download">${ic('dl')} Скачать Word</button><button class="btn ghost" data-act="copy">${ic('copy')} Скопировать</button></div></div>
+  <p class="fine">«Отправить» — выберите чат с тренером в Telegram или WhatsApp, придёт <b>файл Word</b> с вашими ответами. «Скопировать» — ответы текстом, чтобы вставить в чат. Ответы хранятся только на вашем телефоне, пока вы их не отправите.</p>
+  <button class="reset" data-act="reset">Стереть ответы</button></section>`;
+ $('flow').innerHTML=h;sync();observe()}
+
+/* ---------- синхронизация ---------- */
+const REQ=BL;
+function cardHTML(){const t=totals();const L=t?t.parts:[null,null,null];
+ const bw=num(A.weight);
+ const meta=[A.city,bw?`${fmt(bw)} кг`:'',A.exp?`стаж ${A.exp.toLowerCase()}`:'',A.days?`${A.days} трен./нед.`:'',A.fed&&A.fed!=='Не планирую выступать'&&A.fed!=='Пока не решил'?A.fed:''].filter(Boolean);
+ return `<div class="card-top"><div><div class="card-name">${esc(txt('fio')||'Ваше имя')}</div><div class="card-sub">${esc([A.sex,num(A.age)?num(A.age)+' лет':'',num(A.height)?num(A.height)+' см':''].filter(Boolean).join(' · ')||'Пол, возраст, рост')}</div></div><span class="card-tag">PL</span></div>
+  <div class="card-lifts">${['Присед','Жим','Тяга'].map((n,i)=>`<div class="cl"><small>${n}</small><b>${L[i]?fmt(L[i]):'—'}</b></div>`).join('')}<div class="cl sum"><small>Сумма</small><b>${t&&t.total?fmt(t.total):'—'}</b></div></div>
+  ${meta.length?`<div class="card-meta">${meta.map(m=>`<span>${esc(m)}</span>`).join('')}</div>`:''}`}
+function sync(){
+ document.querySelectorAll('[data-set]').forEach(b=>b.setAttribute('aria-pressed',A[b.dataset.set]===b.dataset.v));
+ document.querySelectorAll('[data-multi]').forEach(b=>b.setAttribute('aria-pressed',arr(b.dataset.multi).includes(b.dataset.v)));
+ document.querySelectorAll('[data-toggle]').forEach(b=>b.setAttribute('aria-pressed',!!A[b.dataset.toggle]));
+ BL.forEach(b=>{
+  if(b.type==='yn'){const y=document.querySelector(`[data-yes="${b.id}"]`);if(y)y.hidden=A[b.id]!==b.yes}
+  if(b.note){const n=document.querySelector(`[data-note="${b.id}"]`);if(n)n.hidden=b.note.when?!b.note.when():!A[b.id]&&!(b.id==='exp')}
+  const el=$('b-'+b.id);if(el){const d=isDone(b);el.classList.toggle('done',d);if(d)el.classList.remove('bad')}});
+ const nb=$('no1rmBox');if(nb){nb.hidden=!A.no1rm;$('liftIn').hidden=!!A.no1rm}
+ const t=totals();
+ if($('tTotal')){$('tTotal').innerHTML=t&&t.total?`${fmt(t.total)}<em>кг</em>`:'—';$('tDots').textContent=t&&t.dots?fmt(Math.round(t.dots*10)/10):'—';
+  $('tHint').textContent=t&&t.total&&!t.dots?'Укажите пол и вес выше — посчитаем очки DOTS':'DOTS — очки для сравнения силы атлетов разного веса'}
+ const done=REQ.filter(isDone).length;
+ $('tbc').innerHTML=`<b>${done}</b> из ${REQ.length}`;$('tbfill').style.width=done/REQ.length*100+'%';
+ if($('card')){$('card').innerHTML=cardHTML();$('sendSub').textContent=done===REQ.length?'Всё заполнено — можно отправлять':`Заполнено ${done} из ${REQ.length}`}}
+
+/* ---------- ответы: читаемо для тренера и для ChatGPT ---------- */
+function answer(b){const v=A[b.id];switch(b.type){
+ case 'pair':return b.f.map(f=>txt(f.k)).filter(Boolean).join(', ')||null;
+ case 'body':return bodyOk()?`${A.sex}, рост ${num(A.height)} см, вес ${fmt(num(A.weight))} кг, возраст ${num(A.age)}`:null;
+ case 'yn':if(v==='Нет')return 'Нет';if(v!==b.yes)return null;return [arr(b.id+'_chips').join(', '),txt(b.id+'_detail')].filter(Boolean).join('. ')||b.yes;
+ case 'lifts':{if(A.no1rm)return 'Максимумы не проверял. Рабочие веса: '+txt('lifts_detail');const t=totals();if(!t||!t.total)return null;return `Присед ${fmt(t.parts[0])} кг, жим ${fmt(t.parts[1])} кг, тяга ${fmt(t.parts[2])} кг. Сумма ${fmt(t.total)} кг`+(t.dots?`, DOTS ${fmt(Math.round(t.dots*10)/10)}`:'')}
+ case 'multi':return [arr(b.id).join(', '),txt(b.id+'_detail')].filter(Boolean).join('. ')||null;
+ case 'days':return A.days&&A.dur?`${A.days} дн. в неделю, ${A.dur.toLowerCase()} на тренировку`:null;
+ case 'area':return txt(b.id)||null;
+ default:{let s=v||null;if(s&&b.note&&txt(b.note.k))s+='. '+txt(b.note.k);return s}}}
+function plain(){return `АНКЕТА АТЛЕТА · онлайн-ведение\n\n`+BL.map((b,i)=>`${i+1}. ${b.q}\n${answer(b)||'—'}`).join('\n\n')}
+function fname(){const d=new Date(),p=n=>String(n).padStart(2,'0');const who=(txt('fio').split(/\s+/)[0]||'атлет').replace(/[^\p{L}\p{N}]+/gu,'_');return `Анкета_PL_${who}_${p(d.getDate())}-${p(d.getMonth()+1)}.docx`}
+
+/* ---------- Word (.docx) прямо в браузере, без библиотек: zip без сжатия + WordprocessingML ---------- */
+/* DOCX-CORE-START */
+const DOCX_MIME='application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+const CRCT=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+function crc32(u){let c=0xFFFFFFFF;for(let i=0;i<u.length;i++)c=CRCT[(c^u[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0}
+function zipStore(files){const enc=new TextEncoder(),parts=[],cen=[];let off=0;
+ files.forEach(f=>{const nm=enc.encode(f.name),d=enc.encode(f.data),crc=crc32(d);
+  const h=new DataView(new ArrayBuffer(30));[[0,0x04034b50,4],[4,20,2],[6,0x0800,2],[8,0,2],[10,0,2],[12,33,2],[14,crc,4],[18,d.length,4],[22,d.length,4],[26,nm.length,2],[28,0,2]].forEach(([o,v,s])=>s===4?h.setUint32(o,v,true):h.setUint16(o,v,true));
+  const c=new DataView(new ArrayBuffer(46));[[0,0x02014b50,4],[4,20,2],[6,20,2],[8,0x0800,2],[10,0,2],[12,0,2],[14,33,2],[16,crc,4],[20,d.length,4],[24,d.length,4],[28,nm.length,2],[30,0,2],[32,0,2],[34,0,2],[36,0,2],[38,0,4],[42,off,4]].forEach(([o,v,s])=>s===4?c.setUint32(o,v,true):c.setUint16(o,v,true));
+  parts.push(new Uint8Array(h.buffer),nm,d);cen.push(new Uint8Array(c.buffer),nm);off+=30+nm.length+d.length});
+ const cs=cen.reduce((s,a)=>s+a.length,0),e=new DataView(new ArrayBuffer(22));
+ [[0,0x06054b50,4],[4,0,2],[6,0,2],[8,files.length,2],[10,files.length,2],[12,cs,4],[16,off,4],[20,0,2]].forEach(([o,v,s])=>s===4?e.setUint32(o,v,true):e.setUint16(o,v,true));
+ return parts.concat(cen,[new Uint8Array(e.buffer)])}
+const WNS='xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"';
+const XH='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+const xe=s=>String(s==null?'':s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function wr(t,o){o=o||{};const rp=(o.b?'<w:b/><w:bCs/>':'')+(o.color?`<w:color w:val="${o.color}"/>`:'')+(o.sp?`<w:spacing w:val="${o.sp}"/>`:'')+(o.sz?`<w:sz w:val="${o.sz}"/><w:szCs w:val="${o.sz}"/>`:'');
+ return String(t==null?'':t).split('\n').map((l,i)=>`<w:r>${rp?`<w:rPr>${rp}</w:rPr>`:''}${i?'<w:br/>':''}<w:t xml:space="preserve">${xe(l)}</w:t></w:r>`).join('')}
+function wp(runs,o){o=o||{};return `<w:p><w:pPr>${o.keep?'<w:keepNext/>':''}${o.line?`<w:pBdr><w:bottom w:val="single" w:sz="12" w:space="8" w:color="${o.line}"/></w:pBdr>`:''}<w:spacing w:before="${o.before||0}" w:after="${o.after==null?80:o.after}"/>${o.jc?`<w:jc w:val="${o.jc}"/>`:''}</w:pPr>${runs||''}</w:p>`}
+function wc(w,content,o){o=o||{};return `<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/>${o.fill?`<w:shd w:val="clear" w:color="auto" w:fill="${o.fill}"/>`:''}<w:vAlign w:val="${o.v||'top'}"/></w:tcPr>${content||wp('',{after:0})}</w:tc>`}
+function wt(cols,rows,o){o=o||{};const b=o.color||'DDDAD5',ln=v=>v?`w:val="single" w:sz="4" w:space="0" w:color="${b}"`:'w:val="nil"';
+ return `<w:tbl><w:tblPr><w:tblW w:w="${cols.reduce((a,c)=>a+c,0)}" w:type="dxa"/><w:tblBorders><w:top ${ln(1)}/><w:left ${ln(0)}/><w:bottom ${ln(1)}/><w:right ${ln(0)}/><w:insideH ${ln(1)}/><w:insideV ${ln(o.iv)}/></w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="100" w:type="dxa"/><w:left w:w="140" w:type="dxa"/><w:bottom w:w="100" w:type="dxa"/><w:right w:w="140" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>${cols.map(c=>`<w:gridCol w:w="${c}"/>`).join('')}</w:tblGrid>${rows.map(r=>`<w:tr>${o.h?`<w:trPr><w:trHeight w:val="${o.h}"/></w:trPr>`:''}${r}</w:tr>`).join('')}</w:tbl>`}
+function docxParts(body){return [
+ {name:'[Content_Types].xml',data:XH+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>'},
+ {name:'_rels/.rels',data:XH+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>'},
+ {name:'word/_rels/document.xml.rels',data:XH+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>'},
+ {name:'word/styles.xml',data:XH+`<w:styles ${WNS}><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:eastAsia="Arial" w:cs="Arial"/><w:color w:val="1A1A1A"/><w:sz w:val="21"/><w:szCs w:val="21"/><w:lang w:val="ru-RU"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="80" w:line="264" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style></w:styles>`},
+ {name:'word/document.xml',data:XH+`<w:document ${WNS}><w:body>${body}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="567" w:footer="567" w:gutter="0"/></w:sectPr></w:body></w:document>`}]}
+/* DOCX-CORE-END */
+
+const RED='D42C22',FLAG=new Set(['health','pharm','diet_lim','habits']);
+function docBody(){const t=totals(),W=9638;let b='';
+ const sub=[txt('city'),A.sex,num(A.age)?num(A.age)+' лет':'',num(A.height)?num(A.height)+' см':'',num(A.weight)?fmt(num(A.weight))+' кг':''].filter(Boolean).join('  ·  ');
+ b+=wp(wr('АНКЕТА АТЛЕТА  ·  ОНЛАЙН-ВЕДЕНИЕ ПО ПАУЭРЛИФТИНГУ',{b:1,color:RED,sz:16,sp:20}),{after:80});
+ b+=wp(wr(txt('fio')||'Атлет',{b:1,sz:40}),{after:40});
+ b+=wp(wr(sub,{color:'555555',sz:22}),{after:40});
+ b+=wp(wr('Заполнено: '+new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}),{color:'8A8A8A',sz:18}),{after:280,line:RED});
+ const H=['Присед','Жим лёжа','Становая','Сумма','DOTS'],cw=[1928,1927,1928,1927,1928];
+ const V=A.no1rm||!t||!t.total?['—','—','—','—','—']:[fmt(t.parts[0]),fmt(t.parts[1]),fmt(t.parts[2]),fmt(t.total),t.dots?fmt(Math.round(t.dots*10)/10):'—'];
+ b+=wt(cw,[H.map((h,i)=>wc(cw[i],wp(wr(h.toUpperCase(),{b:1,color:'FFFFFF',sz:15,sp:10}),{after:0,jc:'center'}),{fill:'1F1F21',v:'center'})).join(''),
+  V.map((v,i)=>wc(cw[i],wp(wr(v+(i<4&&v!=='—'?' кг':''),{b:1,sz:30,color:i===3?RED:'1A1A1A'}),{after:0,jc:'center'}),{fill:'F6F4F1',v:'center'})).join('')],{color:'FFFFFF',iv:1});
+ if(A.no1rm)b+=wp(wr('Максимумы не проверял. Рабочие веса: '+txt('lifts_detail'),{color:'555555',sz:19}),{before:100,after:0});
+ CH.forEach((c,ci)=>{
+  b+=wp(wr(String(ci+1).padStart(2,'0')+'   ',{b:1,color:RED,sz:22})+wr(c.toUpperCase(),{b:1,sz:22,sp:10}),{before:360,after:120,keep:1});
+  b+=wt([3100,W-3100],BL.filter(x=>x.ch===ci).map(x=>{const a=answer(x),warn=FLAG.has(x.id)&&a&&a!=='Нет';
+   return wc(3100,wp(wr(`${BL.indexOf(x)+1}. ${x.q}`,{b:1,sz:18,color:'4A4A4A'}),{after:0}),{fill:'F4F2EF'})+wc(W-3100,wp(wr(a||'—',{sz:21,b:warn,color:!a?'9A9A9A':warn?'B3261E':'1A1A1A'}),{after:0}))}))});
+ b+=wp(wr('ПРИШЛЁТ ОТДЕЛЬНО',{b:1,sz:22,sp:10}),{before:360,after:120,keep:1});
+ b+=wp(wr('□   Видео приседа, жима и тяги с рабочим весом — сбоку и спереди под 45°'),{after:60});
+ b+=wp(wr('□   Программа за последние 2–3 месяца'),{after:60});
+ b+=wp(wr('ЗАМЕТКИ ТРЕНЕРА',{b:1,sz:22,sp:10}),{before:360,after:120,keep:1});
+ b+=wt([W],Array.from({length:8},()=>wc(W,'')),{h:440});
+ return b+wp('',{after:0})}
+const docxBlob=()=>new Blob(zipStore(docxParts(docBody())),{type:DOCX_MIME});
+
+/* самопроверка файла Word для разработчика: невидимая кнопка в углу, работает только на примере заполнения */
+async function selftest(){if(!/Соколов/.test(txt('fio')))return;const parts=docxParts(docBody()),errs=[],info=[];
+ parts.forEach(p=>{const d=new DOMParser().parseFromString(p.data,'application/xml');const pe=d.getElementsByTagName('parsererror');if(pe.length)errs.push(p.name+': '+pe[0].textContent.slice(0,160))});
+ const bytes=new Uint8Array(await new Blob(zipStore(parts)).arrayBuffer()),dv=new DataView(bytes.buffer),eo=bytes.length-22;
+ if(dv.getUint32(eo,true)!==0x06054b50)errs.push('нет конца архива');
+ const n=dv.getUint16(eo+10,true);let p=dv.getUint32(eo+16,true);
+ for(let i=0;i<n;i++){if(dv.getUint32(p,true)!==0x02014b50){errs.push('оглавление '+i);break}
+  const crc=dv.getUint32(p+16,true),sz=dv.getUint32(p+20,true),nl=dv.getUint16(p+28,true),lo=dv.getUint32(p+42,true),name=new TextDecoder().decode(bytes.slice(p+46,p+46+nl));
+  if(dv.getUint32(lo,true)!==0x04034b50)errs.push('заголовок '+name);const ln=dv.getUint16(lo+26,true);
+  if(crc32(bytes.slice(lo+30+ln,lo+30+ln+sz))!==crc)errs.push('CRC '+name);info.push(`${name} — ${sz} Б`);p+=46+nl}
+ const NS='http://schemas.openxmlformats.org/wordprocessingml/2006/main',doc=new DOMParser().parseFromString(parts[4].data,'application/xml');
+ const ptxt=el=>{let s='';el.querySelectorAll('*').forEach(x=>{if(x.localName==='t')s+=x.textContent;if(x.localName==='br')s+='<br>'});return s};
+ const pv=el=>{const bold=!!el.getElementsByTagNameNS(NS,'b').length,c=el.getElementsByTagNameNS(NS,'color')[0],sz=el.getElementsByTagNameNS(NS,'sz')[0];return `<p style="margin:0 0 4px;font-weight:${bold?700:400};color:#${c?c.getAttribute('w:val'):'1A1A1A'};font-size:${sz?sz.getAttribute('w:val')/2:10.5}px">${ptxt(el)||'&nbsp;'}</p>`};
+ let html='';[...doc.getElementsByTagNameNS(NS,'body')[0].children].forEach(el=>{
+  if(el.localName==='p')html+=pv(el);
+  if(el.localName==='tbl')html+='<table style="width:100%;border-collapse:collapse;margin:4px 0">'+[...el.getElementsByTagNameNS(NS,'tr')].map(tr=>'<tr>'+[...tr.getElementsByTagNameNS(NS,'tc')].map(tc=>{const sh=tc.getElementsByTagNameNS(NS,'shd')[0];return `<td style="border-bottom:1px solid #ddd;padding:3px 5px;vertical-align:top;background:#${sh?sh.getAttribute('w:fill'):'fff'}">${[...tc.getElementsByTagNameNS(NS,'p')].map(pv).join('')}</td>`}).join('')+'</tr>').join('')+'</table>'});
+ const o=document.createElement('div');o.style.cssText='position:fixed;inset:0;z-index:99;overflow:auto;background:#fff;color:#111;font:12px Arial;padding:12px';
+ o.innerHTML=`<div style="font-weight:700;font-size:14px;color:${errs.length?'#c00':'#080'}">${errs.length?'ОШИБКИ: '+errs.join(' | '):'Файл Word собран: архив, CRC и XML в порядке'} · ${bytes.length} Б</div><div style="color:#666;margin:4px 0 10px">${info.join(' · ')}</div><div style="border:1px solid #ccc;padding:14px">${html}</div>`;
+ document.body.appendChild(o)}
+
+/* ---------- отправка ---------- */
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),3400)}
+function validate(){const f=REQ.find(b=>!isDone(b));REQ.forEach(b=>{if(!isDone(b))$('b-'+b.id).classList.add('bad')});if(f){$('b-'+f.id).scrollIntoView({behavior:'smooth',block:'start'});toast('Остались вопросы без ответа');return false}return true}
+const sent=()=>$('b-send').classList.add('sent');
+function download(blob){const u=URL.createObjectURL(blob||docxBlob());const a=document.createElement('a');a.href=u;a.download=fname();document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),8000);sent();toast('Файл Word сохранён в «Загрузки» — отправьте его тренеру')}
+async function send(){if(!validate())return;const blob=docxBlob();
+ try{const f=new File([blob],fname(),{type:DOCX_MIME});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Анкета атлета'});sent();toast('Готово! Теперь пришлите видео или программу');return}}catch(e){if(e&&e.name==='AbortError')return}
+ download(blob)}
+function copy(){if(!validate())return;const t=plain();
+ const fb=()=>{const x=document.createElement('textarea');x.value=t;x.setAttribute('readonly','');x.style.cssText='position:fixed;top:0;opacity:0';document.body.appendChild(x);x.select();x.setSelectionRange(0,t.length);let ok=false;try{ok=document.execCommand('copy')}catch(e){}x.remove();if(ok)sent();toast(ok?'Скопировано — вставьте в чат с тренером':'Не получилось — нажмите «Скачать»')};
+ if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(()=>{sent();toast('Скопировано — вставьте в чат с тренером')},fb);else fb()}
+const ACT={send,copy,download:()=>{if(validate())download()},
+ start:()=>{const f=REQ.find(b=>!isDone(b));$('b-'+(f?f.id:'send')).scrollIntoView({behavior:'smooth',block:'start'})},
+ reset:()=>{if(confirm('Стереть все ответы?')){try{localStorage.removeItem(STORE)}catch(e){}init();mount();window.scrollTo(0,0)}}};
+
+/* ---------- взаимодействие ---------- */
+const buzz=()=>{try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}};
+const AUTO=new Set(['rows','seg','chips1']);
+function autoNext(bid){const i=BL.findIndex(b=>b.id===bid);const b=BL[i];if(!b||!AUTO.has(b.type)||b.note&&(!b.note.when||b.note.when()))return;
+ setTimeout(()=>{if(!isDone(b))return;const n=BL[i+1];const el=n?(!isDone(n)?$('b-'+n.id):null):$('b-send');if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},420)}
+let demoTaps=0;
+document.addEventListener('click',e=>{
+ if(e.target.closest('[data-demo]')&&!txt('fio')&&++demoTaps>=3){demoTaps=0;demo();save();mount();return}
+ const s=e.target.closest('[data-set]');
+ if(s){const k=s.dataset.set,v=s.dataset.v;A[k]=v;save();sync();buzz();
+  const b=BL.find(x=>x.id===k);
+  if(b&&b.type==='yn'&&v===b.yes){const t=document.querySelector(`[data-yes="${k}"] textarea`);if(t&&!b.chips)setTimeout(()=>t.focus(),60)}
+  else if(b)autoNext(k);
+  return}
+ const m=e.target.closest('[data-multi]');
+ if(m){const k=m.dataset.multi,v=m.dataset.v,a=arr(k);A[k]=a.includes(v)?a.filter(x=>x!==v):a.concat(v);save();sync();buzz();return}
+ if(e.target.closest('#selftest')){selftest();return}
+ const tg=e.target.closest('[data-toggle]');if(tg){A[tg.dataset.toggle]=!A[tg.dataset.toggle];save();sync();return}
+ const a=e.target.closest('[data-act]');if(a&&ACT[a.dataset.act])ACT[a.dataset.act]()});
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.k;if(!k)return;A[k]=e.target.value;save();sync()});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();e.target.blur()}});
+function observe(){const els=document.querySelectorAll('.reveal');
+ if(!('IntersectionObserver' in window)){els.forEach(x=>x.classList.add('in'));return}
+ const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{rootMargin:'0px 0px -8% 0px'});
+ els.forEach(x=>io.observe(x))}
+function onScroll(){$('topbar').classList.toggle('show',window.scrollY>(innerWidth>=980?120:$('hero').offsetHeight-40));
+ let cur=null;document.querySelectorAll('.chap').forEach(c=>{if(c.getBoundingClientRect().top<90)cur=c});
+ $('tbch').textContent=cur?cur.querySelector('h3').textContent:'Анкета атлета'}
+addEventListener('scroll',onScroll,{passive:true});
+mount();onScroll();
+</script>
+</body>
+</html>
